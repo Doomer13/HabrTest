@@ -12,6 +12,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
 
+//Подправленный Варинат в соответсии с замечаниями
 public class MainPageTest {
     private WebDriver driver;
 
@@ -24,7 +25,6 @@ public class MainPageTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://www.habr.com/");
-
     }
 
     @AfterEach
@@ -34,34 +34,26 @@ public class MainPageTest {
 
     @Test
     public void search() {
-
-        WebElement enter = driver.findElement(By.xpath("//button[contains(@class,'btn btn_solid btn_small tm-header-user-menu__login')]"));
+        WebElement enter = driver.findElement(By.xpath("//button[contains(@class,'btn')]"));
         enter.click();
-
-        WebElement enter2 = driver.findElement(By.xpath("//*[contains(text(), 'Вход')]"));
-
+        WebElement enter2 = driver.findElement(By.xpath("//*[@class= 'shadow-box__title']"));
 
         assertTrue(enter2.isDisplayed(), "Элемент Вход не обнаружен");
     }
 
     @Test
     public void changemain() {
-
         WebElement langweech = driver.findElement(By.xpath("//button[contains(@class, 'tm-footer__link')]"));
         langweech.click();
 
-        WebElement darkmain = driver.findElement(By.xpath("//*[@id=\"overlays\"]/div/div[2]/div/div/form/div[5]/div[2]/p[1]/div/label/div/span"));
-        darkmain.click();
+        WebElement darkMain = driver.findElement(By.xpath(
+                "(//*[@class=\"tm-input-radio-labeled__fake\"])[5]"));
+        darkMain.click();
 
         WebElement chekpoint = driver.findElement(By.xpath("//button[contains(@type,'submit')]"));
         chekpoint.click();
 
-        WebElement proverkaelementa = driver.findElement(By.xpath("//h1[contains(text(), \"Моя лента\")]"));
+        WebElement proverkaelementa = driver.findElement(By.xpath("(//nav/a)[1]"));
         assertTrue(proverkaelementa.isDisplayed(), "Элемент @Моя лента@  не обнаружен");
-
     }
-
-
-
-
 }
